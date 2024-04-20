@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="This web application is a marvel medical assistant. It leverages the power of ChatGPT to perform accurate, updated and fast diagnoses." />
+    <meta name="author" content="Nikos Papageorgiou" />
+    <title>Αρχική</title>
+
+
+    <!-- Link CSS file -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type=text], textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+        .btn {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #004494;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body id="bg-login">
+
+<section layout:fragment="content">
+
+    <div class="container">
+        <!-- Patient Search Section -->
+        <div class="container">
+
+            <form th:action="@{/dashboard}" th:method="POST" th:object="${patient}">
+                <div class="form-group">
+                    <label for="socialSecurityNumber">Αναζήτηση ασθενή (AMKA)</label>
+                    <input type="text" class="form-control" id="socialSecurityNumber" th:field="*{socialSecurityNumber}" placeholder="Εισάγετε AMKA" aria-label="Search Patient">
+                </div>
+                <button class="btn" type="submit">Αναζήτηση</button>
+            </form>
+            <a style="display: flex; justify-content: center; align-items: center; font-size: x-large"><strong>ΣΤΟΙΧΕΙΑ ΑΣΘΕΝΗ</strong></a>
+            <form th:method="POST" th:action="@{/dashboard/update}" th:object="${patient}">
+                <div>
+                    <input type="hidden" th:field="*{id}">
+                </div>
+                <div>
+                    <input type="hidden" th:field="*{socialSecurityNumber}">
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Ονοματεπώνυμο</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="fullName"
+                            th:field="*{fullName}"
+                            placeholder="Εισάγετε ονοματεπώνυμο"
+                            aria-label="Full Name">
+                </div>
+                <div class="form-group">
+                    <label for="medicalHistory">Ιατρικό ιστορικό</label>
+                    <textarea
+                            type="text"
+                            class="form-control"
+                            id="medicalHistory"
+                            th:field="*{medicalHistory}"
+                            placeholder="Εισάγετε ιατρικό ιστορικό"
+                            aria-label="Medical History"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="diagnosis">Διάγνωση</label>
+                    <textarea
+                            type="text"
+                            class="form-control"
+                            id="diagnosis"
+                            th:field="*{medicalCondition}"
+                            placeholder="Εισάγετε διάγνωση"
+                            aria-label="Diagnosis"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="medicalTreatment">Θεραπεία</label>
+                    <textarea
+                            type="text"
+                            class="form-control"
+                            id="medicalTreatment"
+                            th:field="*{medicalTreatment}"
+                            placeholder="Εισάγετε προτεινόμενη θεραπεία"
+                            aria-label="Treatment"></textarea>
+                </div>
+                <button class="btn" type="submit">Υποβολή</button>
+            </form>
+        </div>
+
+        <!-- ChatGPT Interaction Section -->
+        <div class="form-group">
+            <label for="messageOutput">Απάντηση ChatGPT</label>
+            <textarea class="form-control" id="messageOutput"></textarea>
+
+            <form id="messageForm">
+                <input type="text" class="form-control" id="messageInput" placeholder="Γράψτε την ερώτησή σας" />
+                <button type="submit" class="btn btn-primary btn-login text-uppercase fw-bold">Υποβολή</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js (assuming Bootstrap 4 for class names used) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Link JavaScript file -->
+    <script th:src="@{/js/scripts.js}"></script>
+</section>
+
+</body>
+</html>

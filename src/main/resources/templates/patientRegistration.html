@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="This web application is a marvel medical assistant. It leverages the power of ChatGPT to perform accurate, updated and fast diagnoses." />
+    <meta name="author" content="Nikos Papageorgiou" />
+    <title>Sign in</title>
+
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Link CSS file -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <style>
+        .error {color:red}
+    </style>
+</head>
+<body id="bg-login">
+
+<section layout:fragment="content">
+
+    <div class="container" >
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5">
+                        <h5 class="card-title text-center mb-5 fw-light fs-5">Καταχώρηση Νέου Ασθενή</h5>
+                        <form th:action="@{/patientRegistration}" th:method="POST" th:object="${patient}">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="fullName" placeholder="Full name" th:field="*{fullName}">
+                                <label for="fullName" >Ονοματεπώνυμο </label>
+                                <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="error"></span>
+
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="socialSecurityNumber" placeholder="ΑΜΚΑ" th:field="*{socialSecurityNumber}">
+                                <label for="socialSecurityNumber">Αριθμός Μητρώου Κοινωνικής Ασφάλισης</label>
+                                <span th:if="${#fields.hasErrors('socialSecurityNumber')}" th:errors="*{socialSecurityNumber}" class="error"></span>
+
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="medicalHistory" placeholder="Medical History" th:field="*{medicalHistory}">
+                                <label for="medicalHistory">Ιατρικό ιστορικό</label>
+                            </div>
+
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="diagnosis" placeholder="Medical Diagnosis" th:field="*{medicalCondition}">
+                                <label for="diagnosis">Διάγνωση</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="treatment" placeholder="Medical Treatment" th:field="*{medicalTreatment}">
+                                <label for="treatment">Θεραπεία</label>
+                            </div>
+
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Καταχώρηση</button>
+                            </div>
+                            <div th:if="${error}" th:text="${error}" class="error"></div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
